@@ -41,8 +41,8 @@ typedef enum {
 } AKShowHideFrom;
 
 - (void)loadTabs;
-- (void)showTabBar:(AKShowHideFrom)showHideFrom animated:(BOOL)animated;
-- (void)hideTabBar:(AKShowHideFrom)showHideFrom animated:(BOOL)animated;
+- (void)showTabBar:(AKShowHideFrom)showHideFrom animated:(BOOL)animated vertically:(BOOL)vertically;
+- (void)hideTabBar:(AKShowHideFrom)showHideFrom animated:(BOOL)animated vertically:(BOOL)vertically;
 
 @end
 
@@ -196,16 +196,16 @@ typedef enum {
         return;
     
     else if (!isPreviousHidden && isNextHidden)
-        [self hideTabBar:(pushed ? AKShowHideFromRight : AKShowHideFromLeft) animated:animated];
+        [self hideTabBar:(pushed ? AKShowHideFromRight : AKShowHideFromLeft) animated:animated vertically:NO];
     
     else if (isPreviousHidden && !isNextHidden)
-        [self showTabBar:(pushed ? AKShowHideFromRight : AKShowHideFromLeft) animated:animated];
+        [self showTabBar:(pushed ? AKShowHideFromRight : AKShowHideFromLeft) animated:animated vertically:NO];
     
     else if (isPreviousHidden && isNextHidden)
         return;
 }
 
-- (void)showTabBar:(AKShowHideFrom)showHideFrom animated:(BOOL)animated
+- (void)showTabBar:(AKShowHideFrom)showHideFrom animated:(BOOL)animated vertically:(BOOL)vertically
 {
     
     CGFloat directionVector;
@@ -222,7 +222,11 @@ typedef enum {
     }
     
     tabBar.hidden = NO;
-    tabBar.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(self.view.bounds) * directionVector, 0);
+    if (vertically) {
+        tabBar.transform = CGAffineTransformMakeTranslation(0, tabBar.frame.size.height * directionVector);
+    } else {
+        tabBar.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(self.view.bounds) * directionVector, 0);
+    }
     // when the tabbarview is resized we can see the view behind
     
     [UIView animateWithDuration:((animated) ? kPushAnimationDuration : 0) animations:^{
@@ -233,7 +237,7 @@ typedef enum {
     }];
 }
 
-- (void)hideTabBar:(AKShowHideFrom)showHideFrom animated:(BOOL)animated
+- (void)hideTabBar:(AKShowHideFrom)showHideFrom animated:(BOOL)animated vertically:(BOOL)vertically
 {
     
     CGFloat directionVector;
@@ -255,7 +259,11 @@ typedef enum {
     tabBarView.contentView.frame = tmpTabBarView;
     
     [UIView animateWithDuration:((animated) ? kPushAnimationDuration : 0) animations:^{
-        tabBar.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(self.view.bounds) * directionVector, 0);
+        if (vertically) {
+            tabBar.transform = CGAffineTransformMakeTranslation(0, tabBar.frame.size.height * directionVector);
+        } else {
+            tabBar.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(self.view.bounds) * directionVector, 0);
+        }
     } completion:^(BOOL finished) {
         tabBar.hidden = YES;
         tabBar.transform = CGAffineTransformIdentity;
@@ -318,12 +326,12 @@ typedef enum {
 
 #pragma mark - Hide / Show Methods
 
-- (void)showTabBarAnimated:(BOOL)animated {
-    [self showTabBar:AKShowHideFromRight animated:animated];
+- (void)showTabBarAnimated:(BOOL)animated vertically:(BOOL)vertically {
+    [self showTabBar:AKShowHideFromRight animated:animated vertically:vertically];
 }
 
-- (void)hideTabBarAnimated:(BOOL)animated {
-    [self hideTabBar:AKShowHideFromRight animated:animated];
+- (void)hideTabBarAnimated:(BOOL)animated vertically:(BOOL)vertically {
+    [self hideTabBar:AKShowHideFromRight animated:animated vertically:vertically];
 }
 
 #pragma mark - Required Protocol Method
