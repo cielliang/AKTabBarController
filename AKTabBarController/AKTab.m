@@ -56,6 +56,7 @@ static const float kTopMargin = 2.0;
         self.backgroundColor = [UIColor clearColor];
         _titleIsHidden = NO;
         isTabIconPresent = NO;
+        self.tabTitleShadowOffset = CGSizeZero;
     }
     return self;
 }
@@ -121,6 +122,8 @@ static const float kTopMargin = 2.0;
     UILabel *tabTitleLabel = [[UILabel alloc] init];
     tabTitleLabel.text = _tabTitle;
     tabTitleLabel.font = self.tabTitleFont ?: [UIFont fontWithName:@"Helvetica-Bold" size:11.0];
+    tabTitleLabel.shadowColor = self.tabTitleShadowColor ? self.tabTitleShadowColor : [UIColor colorWithWhite:1.0f alpha:1.0f];
+    tabTitleLabel.shadowOffset = CGSizeMake(_tabTitleShadowOffset.width, _tabTitleShadowOffset.height);
     CGSize labelSize = [tabTitleLabel.text sizeWithFont:tabTitleLabel.font forWidth:CGRectGetWidth(rect) lineBreakMode:NSLineBreakByTruncatingMiddle ];
     
     CGRect labelRect = CGRectZero;

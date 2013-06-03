@@ -45,6 +45,12 @@
 // Tabs title font
 @property (nonatomic, strong) UIFont *tabTitleFont;
 
+// Tabs title shadow color
+@property (nonatomic, strong) UIColor *tabTitleShadowColor;
+
+// Tabs title shadow offset
+@property (nonatomic, assign) CGSize tabTitleShadowOffset;
+
 // Tabs icon colors
 @property (nonatomic, strong) NSArray *tabIconColors;
 
