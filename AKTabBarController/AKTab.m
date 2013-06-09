@@ -155,7 +155,8 @@ static const float kTopMargin = 2.0;
         
         // When the image is not square we have to make sure it will not go beyond the bonds of the container
         if (CGRectGetWidth(imageRect) >= CGRectGetHeight(imageRect)) {
-            imageRect.size.width = MIN(CGRectGetHeight(imageRect), MIN(CGRectGetWidth(imageContainer), CGRectGetHeight(imageContainer)));
+//            imageRect.size.width = MIN(CGRectGetHeight(imageRect), MIN(CGRectGetWidth(imageContainer), CGRectGetHeight(imageContainer)));
+            imageRect.size.width = MIN(CGRectGetWidth(imageRect), MIN(CGRectGetWidth(imageContainer), CGRectGetHeight(imageContainer)));
             imageRect.size.height = floorf(CGRectGetWidth(imageRect) / ratio);
         } else {
             imageRect.size.height = MIN(CGRectGetHeight(imageRect), MIN(CGRectGetWidth(imageContainer), CGRectGetHeight(imageContainer)));
@@ -171,14 +172,14 @@ static const float kTopMargin = 2.0;
     if (!self.selected) {
         
         // We draw the vertical lines for the border
-        CGContextSaveGState(ctx);
-        {
-            CGContextSetBlendMode(ctx, kCGBlendModeOverlay);
-            CGContextSetFillColorWithColor(ctx, _innerStrokeColor ? [_innerStrokeColor CGColor] : [[UIColor colorWithRed:.7f green:.7f blue:.7f alpha:.1f] CGColor]);
-            CGContextFillRect(ctx, CGRectMake(0, kTopMargin, 1, rect.size.height - kTopMargin));
-            CGContextFillRect(ctx, CGRectMake(rect.size.width - 1, 2, 1, rect.size.height - 2));
-        }
-        CGContextRestoreGState(ctx);
+//        CGContextSaveGState(ctx);
+//        {
+//            CGContextSetBlendMode(ctx, kCGBlendModeOverlay);
+//            CGContextSetFillColorWithColor(ctx, _innerStrokeColor ? [_innerStrokeColor CGColor] : [[UIColor colorWithRed:.7f green:.7f blue:.7f alpha:.1f] CGColor]);
+//            CGContextFillRect(ctx, CGRectMake(0, kTopMargin, 1, rect.size.height - kTopMargin));
+//            CGContextFillRect(ctx, CGRectMake(rect.size.width - 1, 2, 1, rect.size.height - 2));
+//        }
+//        CGContextRestoreGState(ctx);
         
         if (isTabIconPresent)
         {
@@ -271,14 +272,14 @@ static const float kTopMargin = 2.0;
         CGContextRestoreGState(ctx);
         
         // We draw the vertical lines for the border
-        CGContextSaveGState(ctx);
-        {
-            CGContextSetBlendMode(ctx, kCGBlendModeOverlay);
-            CGContextSetFillColorWithColor(ctx, _strokeColor ? [_strokeColor CGColor] : [[UIColor colorWithRed:.7f green:.7f blue:.7f alpha:.4f] CGColor]);
-            CGContextFillRect(ctx, CGRectMake(0, 2, 1, rect.size.height - 2));
-            CGContextFillRect(ctx, CGRectMake(rect.size.width - 1, 2, 1, rect.size.height - 2));
-        }
-        CGContextRestoreGState(ctx);
+//        CGContextSaveGState(ctx);
+//        {
+//            CGContextSetBlendMode(ctx, kCGBlendModeOverlay);
+//            CGContextSetFillColorWithColor(ctx, _strokeColor ? [_strokeColor CGColor] : [[UIColor colorWithRed:.7f green:.7f blue:.7f alpha:.4f] CGColor]);
+//            CGContextFillRect(ctx, CGRectMake(0, 2, 1, rect.size.height - 2));
+//            CGContextFillRect(ctx, CGRectMake(rect.size.width - 1, 2, 1, rect.size.height - 2));
+//        }
+//        CGContextRestoreGState(ctx);
         
         if (isTabIconPresent)
         {
