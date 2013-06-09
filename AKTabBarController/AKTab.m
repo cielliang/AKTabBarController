@@ -143,7 +143,7 @@ static const float kTopMargin = 2.0;
     
     labelRect.size.width = CGRectGetWidth(content);
     labelRect.origin.x = CGRectGetMinX(content);
-    labelRect.origin.y = CGRectGetMaxY(content) - CGRectGetHeight(labelRect);
+    labelRect.origin.y = CGRectGetMaxY(content) - CGRectGetHeight(labelRect) + 3.0f;
     
     if (!displayTabTitle)
         labelRect = CGRectZero;
