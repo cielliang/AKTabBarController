@@ -86,6 +86,9 @@
 // Tab selected background image
 @property (nonatomic, strong) NSString *selectedBackgroundImageName;
 
+// Tab background image insets
+@property (nonatomic) UIEdgeInsets backgroundImageCapInsets;
+
 // Tab text color
 @property (nonatomic, strong) UIColor *textColor;
 
@@ -95,8 +98,17 @@
 // Tab title font
 @property (nonatomic, strong) UIFont *textFont;
 
+// Max Width, if possible
+@property (nonatomic, assign) CGFloat tabWidth;
+
+// Whether the resizing is allowed (for example when the orientation changes)
+@property (nonatomic) BOOL tabBarHasFixedHeight;
+
 // Initialization with a specific height.
 - (id)initWithTabBarHeight:(NSUInteger)height;
+
+// Initialization with a specific height and tab bar position.
+- (id)initWithTabBarHeight:(NSUInteger)height position:(AKTabBarPosition)position;
 
 // Hide / Show Methods
 - (void)showTabBarAnimated:(BOOL)animated vertically:(BOOL)vertically;

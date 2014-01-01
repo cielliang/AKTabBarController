@@ -8,10 +8,6 @@
 
 #import "ThirdViewController.h"
 
-@interface ThirdViewController ()
-
-@end
-
 @implementation ThirdViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -26,6 +22,10 @@
 - (NSString *)tabImageName
 {
 	return @"image-3";
+}
+
+- (NSString *)tabBackgroundImageName {
+    return @"noise-dark-green.png";
 }
 
 @end

@@ -56,6 +56,9 @@ typedef enum {
     
     // Tab Bar height
     NSUInteger tabBarHeight;
+
+    // Tab Bar position
+    AKTabBarPosition tabBarPosition;
 }
 
 #pragma mark - Initialization
@@ -67,14 +70,26 @@ typedef enum {
 
 - (id)initWithTabBarHeight:(NSUInteger)height
 {
-    self = [super init];
+  self = [super init];
+  if (!self) return nil;
+  
+  tabBarHeight = height;
+  
+  // default settings
+  _iconShadowOffset = CGSizeMake(0, -1);
+  
+  _tabWidth = 0.0f;
+  
+  return self;
+}
+
+- (id)initWithTabBarHeight:(NSUInteger)height position:(AKTabBarPosition)position
+{
+    self = [self initWithTabBarHeight:height];
     if (!self) return nil;
-    
-    tabBarHeight = height;
-    
-    // default settings
-    _iconShadowOffset = CGSizeMake(0, -1);
-    
+
+    tabBarPosition = position;
+
     return self;
 }
 
@@ -88,11 +103,16 @@ typedef enum {
     
     // Creating and adding the tab bar
     CGRect tabBarRect = CGRectMake(0.0, CGRectGetHeight(self.view.bounds) - tabBarHeight, CGRectGetWidth(self.view.frame), tabBarHeight);
-    tabBar = [[AKTabBar alloc] initWithFrame:tabBarRect];
+    tabBar = [[AKTabBar alloc] initWithFrame:tabBarRect
+                                 fixedHeight:[self tabBarHasFixedHeight]
+                                    position:tabBarPosition];
     tabBar.delegate = self;
+	
+    [tabBar setTabWidth:[self tabWidth]];
     
     tabBarView.tabBar = tabBar;
     tabBarView.contentView = _selectedViewController.view;
+    tabBarView.tabBarPosition = tabBarPosition;
     [[self navigationItem] setTitle:[_selectedViewController title]];
     [self loadTabs];
 }
@@ -100,17 +120,24 @@ typedef enum {
 - (void)loadTabs
 {
     NSMutableArray *tabs = [[NSMutableArray alloc] init];
-    for (UIViewController *vc in self.viewControllers)
-    {
-        [[tabBarView tabBar] setBackgroundImageName:[self backgroundImageName]];
-        [[tabBarView tabBar] setTabColors:[self tabCGColors]];
-        [[tabBarView tabBar] setEdgeColor:[self tabEdgeColor]];
-        [[tabBarView tabBar] setTopEdgeColor:[self topEdgeColor]];
-        
+
+    [[tabBarView tabBar] setTabColors:[self tabCGColors]];
+    [[tabBarView tabBar] setEdgeColor:[self tabEdgeColor]];
+    [[tabBarView tabBar] setTopEdgeColor:[self topEdgeColor]];
+
+    for (UIViewController *vc in self.viewControllers) {
         AKTab *tab = [[AKTab alloc] init];
         [tab setTabImageWithName:[vc tabImageName]];
-        [tab setBackgroundImageName:[self backgroundImageName]];
+        [tab setActiveImageWithName:[vc activeTabImageName]];
+        
+        if([vc tabBackgroundImageName]) {
+            [tab setBackgroundImageName:[vc tabBackgroundImageName]];
+        } else {
+            [tab setBackgroundImageName:[self backgroundImageName]];
+        }
+        
         [tab setSelectedBackgroundImageName:[self selectedBackgroundImageName]];
+        [tab setBackgroundImageCapInsets:[self backgroundImageCapInsets]];
         [tab setTabIconColors:[self iconCGColors]];
         [tab setTabIconShadowColor:[self iconShadowColor]];
         [tab setTabIconShadowOffset:[self iconShadowOffset]];

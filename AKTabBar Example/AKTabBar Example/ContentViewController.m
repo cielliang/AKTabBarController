@@ -8,9 +8,6 @@
 
 #import "ContentViewController.h"
 
-@interface ContentViewController ()
-
-@end
 
 @implementation ContentViewController
 
@@ -37,12 +34,6 @@
     [label sizeToFit];
     label.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
     [self.view addSubview:label];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

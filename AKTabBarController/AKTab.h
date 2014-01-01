@@ -27,11 +27,17 @@
 // Image used to draw the icon.
 @property (nonatomic, strong) NSString *tabImageWithName;
 
+// Image used to draw the icon when the tab is active
+@property (nonatomic, strong) NSString *activeImageWithName;
+
 // Tab background image
 @property (nonatomic, strong) NSString *backgroundImageName;
 
 // Tab selected background image
 @property (nonatomic, strong) NSString *selectedBackgroundImageName;
+
+// Tab background image insets
+@property (nonatomic) UIEdgeInsets backgroundImageCapInsets;
 
 // Tab text color
 @property (nonatomic, strong) UIColor *textColor;
@@ -96,4 +102,6 @@
 // Used to show / hide title.
 @property (nonatomic, assign) BOOL titleIsHidden;
 
+- (void)drawBackground:(CGContextRef)ctx
+                inRect:(CGRect)rect;
 @end

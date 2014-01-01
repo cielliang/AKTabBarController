@@ -31,6 +31,16 @@
 	return nil;
 }
 
+- (NSString *)activeTabImageName
+{
+  return nil;
+}
+
+- (NSString *)tabBackgroundImageName
+{
+    return nil;
+}
+
 - (NSString *)tabTitle
 {
 	return nil;

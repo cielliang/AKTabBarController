@@ -1,4 +1,4 @@
-// AKTabBarView.h
+// UISplitViewController+AKTabBarController.h
 //
 // Copyright (c) 2012 Ali Karagoz (http://alikaragoz.net)
 //
@@ -20,12 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "AKTabBar.h"
+@interface UISplitViewController (AKTabBarController)
 
-@interface AKTabBarView : UIView
+- (NSString *)tabImageName;
 
-@property (nonatomic, strong) AKTabBar *tabBar;
-@property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, assign) BOOL isTabBarHidding;
-@property (nonatomic, assign) AKTabBarPosition tabBarPosition;
+- (NSString *)activeTabImageName;
+
+- (NSString *)tabTitle;
+
 @end
